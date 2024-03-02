@@ -1,7 +1,8 @@
-# Vue 3 + Vite
+### Hi there 👋
+这是一个Vite + Vue3 搭建的个人网站，最近在学Three.js，所以是一个带有一定3d属性的网站。
+之后会分享一些遇到的技术性的问题，完善自己的网站，添加一些小功能。
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-## Recommended IDE Setup
+##安装依赖  npm install （npm version 10.2.4）
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+##npm run dev 启动
