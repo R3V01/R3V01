@@ -6,3 +6,5 @@
 ##安装依赖  npm install （npm version 10.2.4）
 
 ##npm run dev 启动
+
+http://39.98.50.247/
