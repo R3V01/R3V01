@@ -12,7 +12,7 @@
                 <img src="../../public/show2.png">
                 <img src="../../public/show3.png">
                 <img src="../../public/show4.png">
-                <img src="../../public/func.PNG">
+                <img src="../../public/func.png">
             </div>
         </div>
         <div class="demo_bt">
@@ -36,6 +36,8 @@ export default {
             initDemo();
         });
 
+        let demo_ch
+
         function initDemo(){
             const demo = document.getElementById('demo');
             const skills= document.getElementById('skills');
@@ -49,11 +51,12 @@ export default {
             const d_tl = gsap.timeline({
                 scrollTrigger:{
                     trigger:"#skills",
-                    start:"bottom 50%",
+                    start:"bottom 70%",
                     
-                    end:"bottom 10%",
+                    end:"bottom top",
                     scrub:1,
                     duration:3,
+                    
                 }
             })
 
@@ -65,14 +68,29 @@ export default {
              
             
             const demo_c = document.getElementById("democ");
-            const demo_cs = window.getComputedStyle(demo_c);
-            console.log(demo_cs)
-            console.log(demo_cs[151])
+            const demo_ch = parseInt(window.getComputedStyle(demo_c).height);
+            console.log(demo_ch);
+
+
+            const d_c_tl = gsap.timeline({
+                scrollTrigger:{
+                    trigger:"#demo",
+                    start:"top 10%",
+                    end:"bottom bottom",
+                    scrub:1,
+                    
+                }
+                
+                
+            })
+                d_c_tl.to(".demo_c_l",{y:demo_ch*0.9, ease:"none"},"simultaneously")
+
+                const mountain = document.getElementById("mountain").getElementsByTagName("canvas")[0];
+                mountain.style.touchAction = 'auto';
             
-            
-            window.onload = function (){
+           /* window.onload = function (){
                 const demo_c = document.getElementById("democ");
-                const demo_ch =parseInt(window.getComputedStyle(demo_c).height);
+                demo_ch =parseInt(window.getComputedStyle(demo_c).height);
                 console.log(demo_ch);
                 console.log(typeof(demo_ch))
 
@@ -83,13 +101,32 @@ export default {
                     start:"top 10%",
                     end:"bottom bottom",
                     scrub:1,
+                    
                 }
                 
                 
                  })
                 d_c_tl.to(".demo_c_l",{y:demo_ch*0.8, ease:"none"},"simultaneously")
+
+                const mountain = document.getElementById("mountain").getElementsByTagName("canvas")[0];
+                mountain.style.touchAction = 'auto';
+
+               /* if(document.readyState == "complete"){
+                    document.getElementById("app").style.opacity = 0;
+         
+          
+                    setTimeout(()=>{
+                         document.body.style.overflowY = "auto";
+                        document.getElementById("app").style.opacity = 1;
+                        document.getElementById("loading").style.display = "none";
+                    },8000)
+         
+
+                }else{
+        
+                }
                       
-            }
+            }*/
             
             const d_c_bg = gsap.timeline({
                 scrollTrigger:{

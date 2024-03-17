@@ -10,6 +10,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 export default {
     setup() {
@@ -24,7 +25,7 @@ export default {
 
     function init() {
 
-      const gui = new GUI();
+     //const gui = new GUI();
       const obj = {
         plcolor: 0xece0b6,
         plint: 2.7,
@@ -36,7 +37,7 @@ export default {
         spangle:0.65,
         fogfar:8
       }
-      gui.addColor(obj, 'plcolor').name('点光色').onChange(function(value){
+      /*gui.addColor(obj, 'plcolor').name('点光色').onChange(function(value){
         pointLight.color.set(value);
       })
       gui.add(obj, 'plint',0,3).name('点光强').onChange(function(value){
@@ -62,18 +63,23 @@ export default {
       })
       gui.add(obj, 'fogfar',6,1000).name('foggy').onChange(function(value){
         scene.fog.far = value;
-      })
+      })*/
 
 
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath('../../public/draco/');
 
       const loader = new GLTFLoader();
       const model = new THREE.Group();
-      loader.load('../../public/Mountain4.glb', function(glb){
+      
+      loader.setDRACOLoader(dracoLoader);
+      loader.load('../../public/Mountain7.glb', function(glb){
         model.add(glb.scene);
         //glb.scene.children[0].material.map = mounMap
         
         //console.log(glb.scene.children[0].material)
       })
+      console.log(loader)
 
       const model2 = new THREE.Group();
       /*loader.load('../../public/Mercury 1K.glb', function(glb){
@@ -139,6 +145,7 @@ export default {
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.render(scene,camera);
       document.getElementById('mountain').appendChild(renderer.domElement);
+  
 
       // 创建几何体和材质
       //const geometry = new THREE.BoxGeometry();
@@ -190,16 +197,26 @@ export default {
         .to(spotLight,{intensity:60},"simultaneously")
 
 
+      const textToskill = gsap.timeline({
+        scrollTrigger:{
+          trigger:"#text",
+          endTrigger:"#skills",
+          start:"bottom 80%",
+          end:"bottom bottom",
+          ease:"power1.inOut",
+          duration:3,
+          scrub:1,
+        }
+      })
+      textToskill.to(camera.position,{x:0.16, y:0.36, z:3.8})
+
       controls = new OrbitControls(camera,renderer.domElement);
-      controls.maxAzimuthAngle = Math.PI/3;
-      controls.minAzimuthAngle = -Math.PI/3;
-      controls.enableDaming = true;
-      controls.dampingFactor = 0.05;
-      controls.enableZoom = false;
+      controls.enabled = false;
 
       
       controls.addEventListener('change',function(){
       renderer.render(scene,camera);
+      //console.log(camera.position)
 
     })
       const text = document.getElementById('text');
@@ -213,9 +230,19 @@ export default {
       text.style.width = window.innerWidth + "px";
       skills.style.width = window.innerWidth + "px";
       demo.style.width = window.innerWidth + "px";
-}
+
+      const demo_c = document.getElementById("democ");
+      const demo_ch =parseInt(window.getComputedStyle(demo_c).height);
+      console.log(demo_ch);
+
+
+      }
+
+    
 
     }
+
+    
 
     function animate() {
       requestAnimationFrame(animate);
