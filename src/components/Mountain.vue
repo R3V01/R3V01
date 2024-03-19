@@ -1,5 +1,11 @@
 <template>
-    <div id="mountain"></div>
+    <div id="mountain">
+      <div class="progress-bar-container">
+        <label for="progress-bar">Loading...</label>
+        <progress id="progress-bar" value="0" max="100"></progress>
+      </div>
+    </div>
+    
 </template>
 
 <script>
@@ -65,8 +71,22 @@ export default {
         scene.fog.far = value;
       })*/
 
+      const loadingManager = new THREE.LoadingManager();
 
-      const dracoLoader = new DRACOLoader();
+      const progressBar = document.getElementById('progress-bar');
+      loadingManager.onProgress = function(url, loaded, total){
+        document.body.style.overflowY = "hidden";
+        progressBar.value = (loaded/total)*100;
+      }
+
+      const progressBarContainer = document.querySelector('.progress-bar-container')
+      loadingManager.onLoad = function(){
+        document.body.style.overflowY = "auto";
+        progressBarContainer.style.display = "none";
+      }
+
+
+      const dracoLoader = new DRACOLoader(loadingManager);
       dracoLoader.setDecoderPath('../../public/draco/');
 
       const loader = new GLTFLoader();
@@ -79,7 +99,7 @@ export default {
         
         //console.log(glb.scene.children[0].material)
       })
-      console.log(loader)
+      //console.log(loader)
 
       const model2 = new THREE.Group();
       /*loader.load('../../public/Mercury 1K.glb', function(glb){
